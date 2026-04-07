@@ -46,29 +46,23 @@ def create_polynomial_features(df: pd.DataFrame, degree = 2):
 
     numerical_cols = df.select_dtypes(include=[np.number]).columns
 
-    if 'delivery_cost' in df.columns and len(numerical_cols) > 0:
-        try:
-            corr_with_target = df[numerical_cols.tolist()].corr()[
-                'delivery_cost'].abs().sort_values(ascending=False)
-            top_features = corr_with_target[1:4].index.tolist()  # Top 3 features excluding target itself
+    try:
+        corr_with_target = df[numerical_cols.tolist()].corr()[
+            'delivery_cost'].abs().sort_values(ascending=False)
+        top_features = corr_with_target[1:4].index.tolist()  # Top 3 features excluding target itself
 
-            for feature in top_features:
-                for deg in range(2, degree + 1):
-                    df[f'{feature}_power_{deg}'] = df[feature] ** deg
-                    print(f"Created {feature}_power_{deg}")
-        except Exception as e:
-            # Fallback: use first few numerical features
-            for feature in numerical_cols[:2]:
-                for deg in range(2, degree + 1):
-                    df[f'{feature}_power_{deg}'] = df[feature] ** deg
-                    print(f"Created {feature}_power_{deg}")
+        for feature in top_features:
+            for deg in range(2, degree + 1):
+                df[f'{feature}_power_{deg}'] = df[feature] ** deg
+                print(f"Created {feature}_power_{deg}")
+    except Exception as e:
+        # Fallback: use first few numerical features
+        for feature in numerical_cols[:2]:
+            for deg in range(2, degree + 1):
+                df[f'{feature}_power_{deg}'] = df[feature] ** deg
+                print(f"Created {feature}_power_{deg}")
 
     return df
-
-
-
-
-
 
 
 
