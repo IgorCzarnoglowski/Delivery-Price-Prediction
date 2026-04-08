@@ -5,7 +5,7 @@ import numpy as np
 
 def remove_unused_columns(df: pd.DataFrame):
     print('Removing columns...')
-    unused_columns = ['delivery_time_hours', 'expected_time_hours', 'weather_condition',
+    unused_columns = ['delivery_id', 'delivery_time_hours', 'expected_time_hours', 'weather_condition',
                       'delayed', 'delivery_status', 'delivery_rating']
     for c in unused_columns:
         if c in df.columns:
