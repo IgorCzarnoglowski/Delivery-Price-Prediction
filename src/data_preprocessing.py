@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
 import numpy as np
 
 def remove_unused_columns(df: pd.DataFrame):
@@ -36,7 +37,9 @@ def create_interaction_features(df: pd.DataFrame):
     if 'delivery_distance_km' in df.columns and 'package_weight_kg' in df.columns:
         df['distance_weight_interaction'] = df['delivery_distance_km'] * df['package_weight_kg']
 
-        print('Create distance_weight_interaction')
+        print('Created distance_weight_interaction')
+
+    return df
 
 
 def create_polynomial_features(df: pd.DataFrame, degree = 2):
@@ -63,6 +66,20 @@ def create_polynomial_features(df: pd.DataFrame, degree = 2):
                 print(f"Created {feature}_power_{deg}")
 
     return df
+
+def train_test_split_data(df: pd.DataFrame, test_size: float = 0.2, random_state: int = 1):
+
+    X = df.drop(columns = ['delivery_cost'])
+    y = df['delivery_cost']
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=random_state
+    )
+
+    return X_train, X_test, y_train, y_test
+
+
+
 
 
 
