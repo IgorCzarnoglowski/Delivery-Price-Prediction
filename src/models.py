@@ -15,28 +15,28 @@ def initialize_models():
         'RandomForest': {
             'model': RandomForestRegressor(random_state=42),
             'params': {
-                'model__n_estimators': [100, 200],
-                'model__max_depth': [10, 20, None],
-                'model__min_samples_split': [2, 5],
-                'model__min_samples_leaf': [1, 2]
+                'n_estimators': [100, 200],
+                'max_depth': [10, 20, None],
+                'min_samples_split': [2, 5],
+                'min_samples_leaf': [1, 2]
             }
         },
         'XGBoost': {
             'model': XGBRegressor(random_state=42, verbosity=0),
             'params': {
-                'model__n_estimators': [100, 200],
-                'model__max_depth': [3, 6, 9],
-                'model__learning_rate': [0.01, 0.1, 0.2],
-                'model__subsample': [0.8, 1.0]
+                'n_estimators': [100, 200],
+                'max_depth': [3, 6, 9],
+                'learning_rate': [0.01, 0.1, 0.2],
+                'subsample': [0.8, 1.0]
             }
         },
         'LightGBM': {
             'model': LGBMRegressor(random_state=42, verbose=-1),
             'params': {
-                'model__n_estimators': [100, 200],
-                'model__max_depth': [5, 10, -1],
-                'model__learning_rate': [0.01, 0.1, 0.2],
-                'model__num_leaves': [31, 50, 100]
+                'n_estimators': [100, 200],
+                'max_depth': [5, 10, -1],
+                'learning_rate': [0.01, 0.1, 0.2],
+                'num_leaves': [31, 50, 100]
             }
         }
     }
