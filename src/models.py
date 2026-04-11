@@ -37,15 +37,6 @@ def initialize_models():
                 'learning_rate': [0.01, 0.1, 0.2],
                 'num_leaves': [31, 50, 100]
             }
-        },
-        'SVR': {
-        'model': SVR(),
-        'params': {
-                'kernel': ['rbf', 'linear'],
-                'C': [0.1, 1, 10, 100],
-                'epsilon': [0.01, 0.1, 0.5],
-                'gamma': ['scale', 'auto']   # tylko dla kernel='rbf'
-            }
         }
     }
 
@@ -81,7 +72,8 @@ def train_models(X_train, y_train, X_test, cv: int = 5):
         prediction = grid_search.best_estimator_.predict(X_test)
         predictions[name] = {
             'model_name': name,
-            'prediction': prediction
+            'prediction': prediction,
+            'model': grid_search.best_estimator_
         }
 
     return predictions
