@@ -6,7 +6,7 @@ from src.data_preprocessing import (
     train_test_split_data
 )
 from src.models import train_models
-from src.evaluate import evaluate_model
+from src.evaluate import evaluate_model, feature_importance_analysis
 
 def main():
     # 1. Load data
@@ -34,10 +34,13 @@ def main():
         print(f"\n{model_name} results:")
         for metric, value in scores.items():
             print(f"  {metric}: {value:.4f}")
+        feature_importance_analysis(predictions[model_name], X_test, y_test)
 
     # 6. Best model by R2
     best_model = max(results, key=lambda x: results[x]['r2_score'])
     print(f"\nBest model: {best_model} (R2: {results[best_model]['r2_score']:.4f})")
+
+
 
 if __name__ == '__main__':
     main()
