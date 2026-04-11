@@ -1,6 +1,5 @@
 from collections import defaultdict
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
@@ -37,6 +36,15 @@ def initialize_models():
                 'max_depth': [5, 10, -1],
                 'learning_rate': [0.01, 0.1, 0.2],
                 'num_leaves': [31, 50, 100]
+            }
+        },
+        'SVR': {
+        'model': SVR(),
+        'params': {
+                'kernel': ['rbf', 'linear'],
+                'C': [0.1, 1, 10, 100],
+                'epsilon': [0.01, 0.1, 0.5],
+                'gamma': ['scale', 'auto']   # tylko dla kernel='rbf'
             }
         }
     }
