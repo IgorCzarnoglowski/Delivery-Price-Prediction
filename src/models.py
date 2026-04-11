@@ -1,6 +1,5 @@
 from collections import defaultdict
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.svm import SVR
 from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
 from sklearn.model_selection import GridSearchCV
