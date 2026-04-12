@@ -41,13 +41,12 @@ def initialize_models():
 
     return models
 
-def train_models(X_train, y_train, X_test, cv: int = 5):
+def train_models(X_train, y_train, cv: int = 5):
     # Training models using hyperparameter tuning
     print('Training models...\n')
 
     models_config = initialize_models()
     models = defaultdict(dict)
-    predictions = defaultdict(dict)
 
 
     for name, config in models_config.items():
@@ -67,15 +66,22 @@ def train_models(X_train, y_train, X_test, cv: int = 5):
             'grid_search': grid_search,
             'best_estimator': grid_search.best_estimator_
         }
+    return models
 
-        prediction = grid_search.best_estimator_.predict(X_test)
+
+
+def predict(trained_models: dict, X_test):
+
+    predictions = defaultdict(dict)
+
+    for name, data in trained_models.items():
+        prediction = data['best_estimator'].predict(X_test)
         predictions[name] = {
             'model_name': name,
             'prediction': prediction,
-            'model': grid_search.best_estimator_
+            'model': data['best_estimator']
         }
 
     return predictions
-
 
 

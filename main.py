@@ -5,7 +5,7 @@ from src.data_preprocessing import (
     create_interaction_features,
     train_test_split_data
 )
-from src.models import train_models
+from src.models import train_models, predict
 from src.evaluate import evaluate_model, feature_importance_analysis
 
 def main():
@@ -24,9 +24,12 @@ def main():
     print(X_train.columns.tolist())
 
     # 4. Train
-    predictions = train_models(X_train, y_train, X_test)
+    trained_models = train_models(X_train, y_train)
 
-    # 5. Evaluate
+    # 5. Predict
+    predictions = predict(trained_models, X_test)
+
+    # 6. Evaluate
     results = {}
     for model_name, prediction in predictions.items():
         scores = evaluate_model(prediction, y_test)
@@ -36,7 +39,7 @@ def main():
             print(f"  {metric}: {value:.4f}")
         feature_importance_analysis(predictions[model_name], X_test, y_test)
 
-    # 6. Best model by R2
+    # 7. Best model by R2
     best_model = max(results, key=lambda x: results[x]['r2_score'])
     print(f"\nBest model: {best_model} (R2: {results[best_model]['r2_score']:.4f})")
 
